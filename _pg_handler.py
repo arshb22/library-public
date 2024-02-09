@@ -27,14 +27,9 @@ def check_sql_connection(hostname=hostname, db_name=db_name, username=username, 
         print(f"An error occurred: {e}")
 
 def prep_df_for_table(df):
-    # Convert DataFrame column types to SQL-compatible types
-    # Example: Convert datetime64 to DateTime, etc.
-    # This is a placeholder for actual conversion logic
     return df
 
 def generate_sql_schema(df, table_name):
-    # Generate SQL data types for each column in the DataFrame
-    # This is a simplified example and will need to be expanded to handle all types
     types_mapping = {
         'int64': Integer,
         'float64': Float,
@@ -65,16 +60,7 @@ def push_data_to_table(df, table_name, hostname=hostname, user=username, passwor
 
 # Example usage
 if __name__ == "__main__":
-    # Example DataFrame creation
-    df = pd.DataFrame({
-        'column1': [1, 2],
-        'column2': [3.0, 4.5],
-        'column3': ['data1', 'data2'],
-        'column4': [pd.Timestamp('20230101'), pd.Timestamp('20230102')]
-    })
-
-    # Use the functions here
-    check_sql_connection()
-    # Assuming table_name is defined
-    create_table(schema, 'example_table')
-    push_data_to_table(df, 'example_table')
+    print('run script')
+    #check_sql_connection()
+    #create_table(schema, 'example_table')
+    #push_data_to_table(df, 'example_table')
