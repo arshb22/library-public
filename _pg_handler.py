@@ -39,7 +39,7 @@ def generate_sql_schema(df, table_name):
     columns = [Column(col, types_mapping[str(df[col].dtype)]) for col in df.columns]
     return columns
 
-def create_table(schema, table_name, hostname=hostname, user=username, password=password, db_name=db_name):
+def create_table(df, schema, table_name, hostname=hostname, user=username, password=password, db_name=db_name):
     # Create engine
     engine = create_engine(f'postgresql+psycopg2://{user}:{password}@{hostname}/{db_name}')
     metadata = MetaData(schema=schema)
