@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Chatbot with File Explorer{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div id="file-explorer" class="my-3">
+        <p>File Explorer</p>
+        <ul id="file-list" class="list-unstyled"></ul> <!-- List of uploaded files -->
+    </div>
+    <div id="chat-container" class="my-3">
+        <div id="chat-box" class="mb-3"></div>
+        <input type="text" id="user-input" class="form-control mb-2">
+        <button onclick="processMessage()" class="btn btn-primary">Send</button>
+        <input type="file" id="file-input" accept=".csv" class="form-control-file mt-2">
+    </div>
+</div>
+
+<script>
+    function processMessage() {
+        var message = $('#user-input').val();
+        var file = $('#file-input')[0].files[0];
+        var formData = new FormData();
+        if (file) {
+            formData.append('file', file);
+        }
+        
+        formData.append('message', message);
+
+        $.ajax({
+            url: '/process_message',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#chat-box').append('<div class="text-left">You: ' + message + '</div>');
+                $('#chat-box').append('<div class="text-right">Bot: ' + response.message + '</div>');
+                $('#user-input').val('');
+            }
+        });
+    }
+</script>
+{% endblock %}
