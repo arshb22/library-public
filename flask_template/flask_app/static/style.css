@@ -1,0 +1,132 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #1e1e1e;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+#main-container {
+    margin-left: 250px;
+    padding: 10px;
+}
+
+.section, #user-uploaded-files, #system-generated-files, #status-bar {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #252526;
+    border-radius: 4px;
+}
+
+.section p, #user-uploaded-files p, #system-generated-files p, #status-bar p {
+    color: #9CDCFE;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+}
+
+#chat-container {
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+#chat-box {
+    height: 400px;
+    overflow-y: auto;
+    background-color: #252526;
+    border: 1px solid #333;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#user-input {
+    width: calc(100% - 110px);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #dcdcdc;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0057a6;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    background-color: #333;
+    color: #dcdcdc;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #007acc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Styling for dynamic content like grid views and checklists */
+.grid-view, .checklist-view {
+    border: 1px solid #333;
+    background-color: #252526;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.grid-view div, .checklist-view label {
+    margin-bottom: 10px;
+}
+
+.checklist-view input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #565656;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}

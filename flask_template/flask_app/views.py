@@ -9,8 +9,8 @@ from openai import OpenAI
 
 load_dotenv()
 
-api_key = os.environ.get("OPEN_AI_API_KEY")
-client = openai.Client(api_key=api_key)
+#api_key = os.environ.get("OPEN_AI_API_KEY")
+#client = openai.Client(api_key=api_key)
 
 @app.route('/')
 def home():
