@@ -1,0 +1,54 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+from datetime import datetime
+
+# Example DataFrame
+df = pd.DataFrame({
+    'date': pd.date_range(start='1/1/2022', periods=100),
+    'values': np.random.rand(100)
+})
+
+# Helper function to create a plot based on a given date
+def create_plot(selected_date, df):
+    filtered_data = df[df['date'] == pd.to_datetime(selected_date)]
+    fig = px.line(filtered_data, x='date', y='values', title='Dynamics Over Time', labels={'values': 'Value'})
+    return fig
+
+# Streamlit app
+def main():
+    st.title("Test")
+
+    # Creating tabs
+    tab1, tab2 = st.tabs(["Summary View", "Chatbot"])
+
+    with tab1:
+        st.header("Summary View")
+        # Date dropdown
+        date = st.selectbox('Select Date', df['date'].dt.date.unique())
+        # Display the dynamic plot based on the selected date
+        if st.button('Show Plot'):
+            fig = create_plot(date, df)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # Template text with dynamic variables (example)
+        st.markdown(f"### Analysis for {date}")
+        st.markdown("""
+        - **Note**: This is a template text.
+        - **Insight**: This insight changes based on the selected date.
+        """)
+
+    with tab2:
+        st.header("Chatbot Interface")
+        # Drop downs for chatbot
+        data_type = st.selectbox('Select Data Type', ['Type 1', 'Type 2', 'Type 3'])
+        date_range = st.date_input("Select Date Range", [])
+
+        # Simulated chatbot response
+        if st.button('Get Response'):
+            # This is where your similarity search and retrieval logic will go
+            st.text("Chatbot response based on {} from {} to {}".format(data_type, date_range[0], date_range[1]))
+
+if __name__ == "__main__":
+    main()
