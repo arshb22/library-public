@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from datetime import datetime
+from weasyprint import HTML
 
 # Example DataFrame
 df = pd.DataFrame({
@@ -16,9 +16,37 @@ def create_plot(selected_date, df):
     fig = px.line(filtered_data, x='date', y='values', title='Dynamics Over Time', labels={'values': 'Value'})
     return fig
 
+# Function to generate HTML content for PDF generation
+def generate_html_content(date, fig):
+    html_content = f"""
+    <html>
+    <head>
+    <title>Summary Report</option>
+    </head>
+    <body>
+    <h1>Summary for {date}</h1>
+    {fig.to_html()}
+    <p>Insights:</p>
+    <ul>
+        <li>Note: This is a template text.</li>
+        <li>Insight: This insight changes based on the selected date.</li>
+    </ul>
+    </body>
+    </html>
+    """
+    return html_content
+
+# Helper function to simulate chatbot responses (this would be replaced by your actual chatbot logic)
+def chatbot_response(data_type, date_range):
+    return f"Chatbot response based on {data_type} from {date_range[0]} to {date_range[1]}."
+
 # Streamlit app
 def main():
-    st.title("Test")
+    st.title("Streamlit App with Two Tabs")
+
+    # Initialize session state for conversation history
+    if 'conversation' not in st.session_state:
+        st.session_state['conversation'] = []
 
     # Creating tabs
     tab1, tab2 = st.tabs(["Summary View", "Chatbot"])
@@ -28,16 +56,22 @@ def main():
         # Date dropdown
         date = st.selectbox('Select Date', df['date'].dt.date.unique())
         # Display the dynamic plot based on the selected date
-        if st.button('Show Plot'):
+        plot_button = st.button('Show Plot')
+        if plot_button:
             fig = create_plot(date, df)
             st.plotly_chart(fig, use_container_width=True)
 
-        # Template text with dynamic variables (example)
-        st.markdown(f"### Analysis for {date}")
-        st.markdown("""
-        - **Note**: This is a template text.
-        - **Insight**: This insight changes based on the selected date.
-        """)
+        save_pdf = st.button("Save as PDF")
+        if save_pdf and plot_button:  # Ensure plot was generated
+            html_content = generate_html_content(date, fig)
+            html = HTML(string=html_content)
+            pdf = html.write_pdf()
+            st.download_button(
+                label="Download PDF",
+                data=pdf,
+                file_name=f"summary_{date}.pdf",
+                mime="application/pdf"
+            )
 
     with tab2:
         st.header("Chatbot Interface")
@@ -45,10 +79,15 @@ def main():
         data_type = st.selectbox('Select Data Type', ['Type 1', 'Type 2', 'Type 3'])
         date_range = st.date_input("Select Date Range", [])
 
-        # Simulated chatbot response
-        if st.button('Get Response'):
-            # This is where your similarity search and retrieval logic will go
-            st.text("Chatbot response based on {} from {} to {}".format(data_type, date_range[0], date_range[1]))
+        # Start/Continue Conversation
+        if st.button('Start Conversation'):
+            response = chatbot-reponse(data_type, date_range)
+            st.session_state.conversation.append("User: " + f"{data_type} from {date_range[0]} to {date_range[1]}")
+            st.session_state.conversation.append("Bot: " + response)
+        
+        # Display conversation history
+        for message in st.session_state.conversation:
+            st.text(message)
 
 if __name__ == "__main__":
     main()
