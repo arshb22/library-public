@@ -30,7 +30,7 @@ def get_response_from_vector_store(prompt):
 
 def get_completions(prompt):
     #documents = vector_store.search(prompt)
-    #prompt = f"Here is the context: {documents[0].page_content} \n\n {prompt}"
+    #prompt_append = f"Here is the context: {documents[0].page_content} \n\n {prompt}"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
