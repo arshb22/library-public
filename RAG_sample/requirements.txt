@@ -1,0 +1,14 @@
+flask
+PyMuPDF==1.24.0
+PyMuPDFb==1.24.0
+langchain-openai==0.1.1
+openai==1.11.0
+langchain==0.1.13
+langchain-community==0.0.29
+langchain-core==0.1.36
+langchain-openai==0.1.1
+langchain-text-splitters==0.0.1
+chromadb==0.4.22
+pydantic==2.6.0
+instructor==0.4.8
+pytest==8.1.1
